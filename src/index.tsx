@@ -1,7 +1,9 @@
 import ReactDOM from "react-dom/client";
+import { QueryClientProvider, QueryClient } from "react-query";
 import { createGlobalStyle } from "styled-components";
-
 import App from "./App";
+
+const queryClient = new QueryClient({ defaultOptions: {} });
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -55,7 +57,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <>
-    <GlobalStyle />
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <GlobalStyle />
+      <App />
+    </QueryClientProvider>
   </>
 );
