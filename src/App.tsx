@@ -118,7 +118,7 @@ function App() {
         setMessage3("따뜻하게 입고가세요~");
       } else {
         setMessage2("너무 추워요");
-        setMessage3("가급적 밖에 나가지마세요!");
+        setMessage3("가급적 밖에 나가지 마세요!");
       }
     }
   }, [data]);
