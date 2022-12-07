@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { getWeathers, weatherApi } from "./api";
@@ -9,20 +9,22 @@ const Wraaper = styled.div`
   overflow: hidden;
   background-color: #3c40c6;
   color: whitesmoke;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 `;
 
 const Header = styled.header`
+  display: flex;
   width: 100%;
   height: 100px;
   background-color: #575fcf;
+  justify-content: flex-start;
   @media screen and (max-width: 767px) {
-    display: flex;
     justify-content: center;
   }
 `;
 
 const Logo = styled.div`
-  width: 150px;
   height: 100px;
   font-size: 70px;
   display: flex;
@@ -96,6 +98,30 @@ const WeatherDivs = styled.div`
 
 function App() {
   const { data, isLoading } = useQuery<weatherApi>("weather", getWeathers);
+  const [message2, setMessage2] = useState("");
+  const [message3, setMessage3] = useState("");
+
+  useEffect(() => {
+    if (data?.main?.temp !== undefined) {
+      if (data.main?.temp > 28) {
+        setMessage2("더워요 ㅠㅠ");
+        setMessage3("더위조심하세요!");
+      } else if (data.main?.temp > 20) {
+        setMessage2("온도는 적당해요");
+        setMessage3("산책이라도 나가보세요~");
+      } else if (data.main.temp > 10) {
+        setMessage2("조금 추워요");
+        setMessage3("감기조심하세요!");
+      } else if (data.main.temp >= -1) {
+        setMessage2("엄청추워요");
+        setMessage3("따뜻하게 입고가세요~");
+      } else {
+        setMessage2("너무 추워요");
+        setMessage3("가급적 밖에 나가지마세요!");
+      }
+    }
+  }, [data]);
+
   let main;
   let desc;
   if (Array.isArray(data?.weather)) {
@@ -106,23 +132,25 @@ function App() {
   return (
     <Wraaper>
       <Header>
-        <Logo>제목</Logo>
+        <Logo>날씨알아서생각해라</Logo>
       </Header>
       <Content>
-        <MessageDiv>
-          <Message>추워요</Message>
-          <Message>더워요</Message>
-          <Message>날씨는 어때요</Message>
-        </MessageDiv>
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <WeatherContainer>
-            <WeatherDivs>{main}</WeatherDivs>
-            <WeatherDivs>{desc}</WeatherDivs>
-            <WeatherDivs>{data?.main?.temp} °C </WeatherDivs>
-            <WeatherDivs>{data?.name}</WeatherDivs>
-          </WeatherContainer>
+          <>
+            <MessageDiv>
+              <Message>날씨는 어때요</Message>
+              <Message>{message2}</Message>
+              <Message>{message3}</Message>
+            </MessageDiv>
+            <WeatherContainer>
+              <WeatherDivs>{main}</WeatherDivs>
+              <WeatherDivs>{desc}</WeatherDivs>
+              <WeatherDivs>{data?.main?.temp} °C </WeatherDivs>
+              <WeatherDivs>{data?.name}</WeatherDivs>
+            </WeatherContainer>
+          </>
         )}
       </Content>
     </Wraaper>
