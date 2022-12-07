@@ -19,7 +19,7 @@ const Header = styled.header`
   height: 100px;
   background-color: #575fcf;
   justify-content: flex-start;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 807px) {
     justify-content: center;
   }
 `;
@@ -32,8 +32,9 @@ const Logo = styled.div`
   align-items: center;
   padding-bottom: 5px;
   box-sizing: border-box;
-  @media screen and (max-width: 767px) {
-    font-size: 60px;
+  @media screen and (max-width: 807px) {
+    font-size: 50px;
+    font-weight: 600;
   }
 `;
 
@@ -42,7 +43,7 @@ const Content = styled.main`
   justify-content: space-around;
   align-items: center;
   padding-top: 50px;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 807px) {
     flex-direction: column;
   }
 `;
@@ -55,7 +56,7 @@ const MessageDiv = styled.div`
   flex-direction: column;
   flex-shrink: 0;
   box-sizing: border-box;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 807px) {
     width: 100%;
     padding: 10px;
   }
@@ -70,7 +71,7 @@ const Message = styled.span`
   padding: 20px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 807px) {
     font-size: 35px;
   }
 `;
@@ -82,7 +83,7 @@ const WeatherContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(2, 1fr);
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 807px) {
     width: 100%;
     padding: 0px 10px;
   }
@@ -132,7 +133,7 @@ function App() {
   return (
     <Wraaper>
       <Header>
-        <Logo>날씨알아서생각해라</Logo>
+        <Logo>날씨</Logo>
       </Header>
       <Content>
         {isLoading ? (
